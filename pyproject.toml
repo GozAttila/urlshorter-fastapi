@@ -40,3 +40,6 @@ include = '\.pyi?$'
 [tool.isort]
 profile = "black"
 multi-line-output = 3 
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
