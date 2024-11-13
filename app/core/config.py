@@ -1,6 +1,6 @@
 from typing import Any, Dict, Optional
-from pydantic_settings import BaseSettings
-from pydantic import PostgresDsn, validator
+from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic import PostgresDsn
 
 class Settings(BaseSettings):
     PROJECT_NAME: str = "URL Shortener"
@@ -8,6 +8,7 @@ class Settings(BaseSettings):
     
     # Database
     DATABASE_URL: PostgresDsn
+    TEST_DATABASE_URL: PostgresDsn | None = None
     
     # JWT
     SECRET_KEY: str
@@ -17,8 +18,10 @@ class Settings(BaseSettings):
     # Redis
     REDIS_URL: str
     
-    class Config:
-        case_sensitive = True
-        env_file = ".env"
+    # Az elavult Config osztály helyett használjuk a model_config-ot
+    model_config = SettingsConfigDict(
+        case_sensitive=True,
+        env_file=".env"
+    )
 
 settings = Settings() 
